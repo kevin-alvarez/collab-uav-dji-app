@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,12 +19,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import org.w3c.dom.Text;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
+import dji.common.util.CommonCallbacks;
 import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.sdkmanager.DJISDKInitEvent;
@@ -53,20 +60,51 @@ public class MainActivity extends AppCompatActivity {
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
     private static final int REQUEST_PERMISSION_CODE = 12345;
 
+    // Components
+    TextView mMainText;
+    TextView mVersionText;
+    TextView mRegistrationStatusText;
+    TextView mProductConnectionStatusText;
+    TextView mProductInfo;
+    Button mFlightPlanButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
+        // Initialize Components
+        this.mMainText = findViewById(R.id.mainText);
+        this.mVersionText = findViewById(R.id.versionText);
+        this.mRegistrationStatusText = findViewById(R.id.registrationStatusText);
+        this.mProductConnectionStatusText = findViewById(R.id.productConnectionStatusText);
+        this.mProductInfo = findViewById(R.id.productInfo);
+        this.mFlightPlanButton = findViewById(R.id.toFlightPlanButton);
 
         // When the compile and target version is higher than 22, please request the following permission at runtime to ensure the SDK works well.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkAndRequestPermissions();
         }
 
-        setContentView(R.layout.activity_main);
-
-        //Initialize DJI SDK Manager
+        // Initialize DJI SDK Manager
         mHandler = new Handler(Looper.getMainLooper());
 
+        // Initialize Components contents
+        this.mMainText.setText("Loading...");
+        this.mRegistrationStatusText.setText("Registration status: Pending...");
+        this.mProductConnectionStatusText.setText("Product connection status: Pending...");
+        this.mProductInfo.setText("---");
+        this.mVersionText.setText("DJI SDK Version: "+DJISDKManager.getInstance().getSDKVersion());
+        this.mFlightPlanButton.setText("Flight Plan");
+        this.mFlightPlanButton.setClickable(false);
+
+        this.mFlightPlanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FlightPlanActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -128,9 +166,25 @@ public class MainActivity extends AppCompatActivity {
                         public void onRegister(DJIError djiError) {
                             if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
                                 showToast("Register Success");
-                                DJISDKManager.getInstance().startConnectionToProduct();
+                                if (DJISDKManager.getInstance().startConnectionToProduct()) {
+                                    DJISDKManager.getInstance().getProduct().getName(new CommonCallbacks.CompletionCallbackWith<String>() {
+                                        @Override
+                                        public void onSuccess(String name) {
+                                            updateStatusInfo("Done", "Done", name);
+                                        }
+
+                                        @Override
+                                        public void onFailure(DJIError djiError) {
+                                            showToast("Error retrieving product information");
+                                            updateStatusInfo("Done", "Done", "Unknown");
+                                        }
+                                    });
+                                } else {
+                                    updateStatusInfo("Done", "Failed", "---");
+                                }
                             } else {
                                 showToast("Register sdk fails, please check the bundle id and network connection!");
+                                updateStatusInfo("Failed", "Failed", "---");
                             }
                             Log.v(TAG, djiError.getDescription());
                         }
@@ -202,7 +256,6 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void showToast(final String toastMsg) {
-
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
@@ -210,7 +263,20 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_LONG).show();
             }
         });
+    }
 
+    private void updateStatusInfo(String registration, String productConnection, String productInfo) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                mMainText.setText("");
+                mRegistrationStatusText.setText("Registration status: "+registration);
+                mProductConnectionStatusText.setText("Product connection status: "+productConnection);
+                mProductInfo.setText(productInfo);
+                mFlightPlanButton.setClickable(true);
+            }
+        });
     }
 
 }
