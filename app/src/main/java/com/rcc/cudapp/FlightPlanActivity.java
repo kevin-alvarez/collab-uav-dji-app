@@ -5,21 +5,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class FlightPlanActivity extends AppCompatActivity {
+public class FlightPlanActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flight_plan);
-        overridePendingTransition(R.anim.enter_slide_in, R.anim.enter_slide_out);
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.exit_slide_in, R.anim.exit_slide_out);
     }
 
     private void showToast(final String toastMsg) {

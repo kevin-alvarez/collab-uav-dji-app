@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Collab UAV DJI App</string>
+
+    <string name="title_activity_launch">LaunchActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

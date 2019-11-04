@@ -13,4 +13,8 @@ public class MApplication extends Application {
         Helper.install(MApplication.this);
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 }

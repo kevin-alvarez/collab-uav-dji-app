@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rcc.cudapp">
+
     <!-- Permissions and features -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -26,7 +27,6 @@
     <uses-feature
         android:name="android.hardware.usb.accessory"
         android:required="true" />
-
     <application
         android:name=".MApplication"
         android:allowBackup="true"
@@ -35,6 +35,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".LaunchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_launch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".FlightPlanActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+        </activity>
         <!-- DJI SDK -->
         <uses-library android:name="com.android.future.usb.accessory" />
         <uses-library
@@ -55,20 +74,8 @@
             <meta-data
                 android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
                 android:resource="@xml/accessory_filter" />
-        </activity> <!-- DJI SDK -->
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".FlightPlanActivity"
-                  android:configChanges="orientation"
-                  android:screenOrientation="portrait"></activity>
+        <!-- DJI SDK -->
     </application>
 
 </manifest>
