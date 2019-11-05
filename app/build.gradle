@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 repositories {
     mavenLocal()
+    maven { url 'https://jitpack.io' }
 }
 
 android {
@@ -86,6 +87,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation 'junit:junit:4.12'
+
+    //Libraries
+    implementation 'com.github.blikoon:QRCodeScanner:0.1.2'
 
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.core:core:1.0.0'

@@ -1,10 +1,7 @@
 package com.rcc.cudapp;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -26,15 +23,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.dji.service.areacode.wire.DJIACPolygonList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
-import dji.common.util.CommonCallbacks;
 import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.sdkmanager.DJISDKInitEvent;
@@ -55,6 +49,7 @@ public class LaunchActivity extends AppCompatActivity {
             Manifest.permission.VIBRATE,
             Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.CAMERA,
             Manifest.permission.WAKE_LOCK,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_NETWORK_STATE,
@@ -82,7 +77,6 @@ public class LaunchActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_launch);
-        //getActionBar().hide();
 
         // Init Components
         this.mLoadingIcon = findViewById(R.id.loadingIcon);
