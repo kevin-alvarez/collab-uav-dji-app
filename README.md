@@ -9,3 +9,4 @@ Compile with android studio and send apk to smartphone
 ## Libraries and tools
 * DJI SDK 4.11
 * QRCodeScanner 0.12 (blikoon)
+* Java socketio client 0.9.0
