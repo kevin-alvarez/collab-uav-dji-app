@@ -42,7 +42,7 @@ public class LaunchActivity extends AppCompatActivity {
 
     private static final String TAG = LaunchActivity.class.getName();
     public static final String FLAG_CONNECTION_CHANGE = "dji_sdk_connection_change";
-    private static BaseProduct mProduct;
+    //private static BaseProduct mProduct;
     public Handler mHandler;
 
     private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
@@ -76,6 +76,11 @@ public class LaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkAndRequestPermissions();
+        }
+
         setContentView(R.layout.activity_launch);
 
         // Init Components
@@ -85,9 +90,7 @@ public class LaunchActivity extends AppCompatActivity {
         this.mVersionText = findViewById(R.id.versionText);
 
         // DJI SDK Settings
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkAndRequestPermissions();
-        }
+        mHandler = new Handler(Looper.getMainLooper());
 
 
         // Init Components Content
@@ -199,8 +202,7 @@ public class LaunchActivity extends AppCompatActivity {
                                     }
                                 });
                             }
-                            Log.d(TAG,
-                                    String.format("onComponentChange key:%s, oldComponent:%s, newComponent:%s",
+                            Log.d(TAG, String.format("onComponentChange key:%s, oldComponent:%s, newComponent:%s",
                                             componentKey,
                                             oldComponent,
                                             newComponent));
@@ -271,6 +273,6 @@ public class LaunchActivity extends AppCompatActivity {
                 Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-        }, 3000);
+        }, 5000);
     }
 }

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import dji.sdk.base.BaseProduct;
 import dji.sdk.sdkmanager.DJISDKManager;
 import dji.thirdparty.afinal.core.AsyncTask;
 import io.socket.client.IO;
@@ -38,18 +40,38 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getName();
     private Handler mHandler;
+    private BaseProduct mProduct;
+    private static final int REQUEST_CODE_QR_SCAN = 101;
+
+    // Connection resources
     private Socket mSocket;
     private String nodeURL;
     private int uavID;
     private Boolean isConnected = false;
 
-    private static final int REQUEST_CODE_QR_SCAN = 101;
+    // UAV Status variables
+    private static final int STATUS_OK = 0;
+    private static final int STATUS_LOW_ERROR = 1;
+    private static final int STATUS_HIGH_ERROR = 2;
+
+    private int missionProgress = 50;
+    private int cameraStatus = STATUS_OK;
+    private int motorStatus  = STATUS_OK;
+    private int batteryLevel  = 30;
+
+
 
     // Components
-    TextView mVersionText;
+    TextView mProductName;
     TextView mSyncStatus;
+    TextView mCameraStatus;
+    TextView mMotorStatus;
+    TextView mBatteryLevel;
+    TextView mMissionProgress;
+    TextView mCurrentCommand;
     Button mFlightPlanButton;
     Button mSyncButton;
+    Button mSendDataButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,25 +79,40 @@ public class MainActivity extends BaseActivity {
 
         setContentView(R.layout.activity_main);
         // Init Components
-        this.mFlightPlanButton = findViewById(R.id.toFlightPlanButton);
+        this.mProductName = findViewById(R.id.productName);
+        this.mSyncStatus = findViewById(R.id.syncStatus);
+        this.mCameraStatus = findViewById(R.id.cameraStatus);
+        this.mMotorStatus = findViewById(R.id.motorStatus);
+        this.mBatteryLevel = findViewById(R.id.batteryLevel);
+        this.mMissionProgress = findViewById(R.id.missionProgress);
+        this.mCurrentCommand = findViewById(R.id.currentCommand);
         this.mSyncButton = findViewById(R.id.syncButton);
-        this.mVersionText = findViewById(R.id.versionText);
-        this.mSyncStatus = findViewById(R.id.syncStatusText);
+        this.mFlightPlanButton = findViewById(R.id.flightPlanButton);
+        this.mSendDataButton = findViewById(R.id.sendDataButton);
 
         // DJI SDK
-        mHandler = new Handler(Looper.getMainLooper());
+        this.mHandler = new Handler(Looper.getMainLooper());
+        this.mProduct = DJISDKManager.getInstance().getProduct();
 
         // Init Components Content
-        this.mSyncStatus.setText("No UAV connected...");
+        if (mProduct != null) {
+            this.mProductName.setText("Product connected: "+DJISDKManager.getInstance().getProduct().getModel().name());
+        }else {
+            this.mProductName.setText("Product connected: No DJI Product connected...");
+
+        }
+        updateComponentsStatus();
+        this.mSyncStatus.setText("ROS Sync: Not synced...");
         this.mFlightPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mVersionText.setText(DJISDKManager.getInstance().getSDKVersion());
                 Intent intent = new Intent(MainActivity.this, FlightPlanActivity.class);
                 startActivity(intent);
             }
         });
         this.mSyncButton.setOnClickListener(syncEventButton);
+        this.mSendDataButton.setOnClickListener(sendDataEventButton);
+        this.mSendDataButton.setVisibility(View.VISIBLE);
         //sendRequest();
     }
 
@@ -132,6 +169,24 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    // DJI Components
+    private void updateComponentsStatus() {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mProduct != null && mProduct.isConnected()) {
+                    //Actualizar valores
+                }
+                mCameraStatus.setText("Camera status: "+cameraStatus);
+                mMotorStatus.setText("Motor status: "+motorStatus);
+                mBatteryLevel.setText("Battery Level: "+batteryLevel+"%");
+                mMissionProgress.setText("Mission Progress: "+missionProgress+"%");
+                mCurrentCommand.setText("Current status: Landed");
+            }
+        });
+    }
+
     // Sync Button Events
     private View.OnClickListener syncEventButton = new View.OnClickListener() {
         @Override
@@ -156,11 +211,13 @@ public class MainActivity extends BaseActivity {
                 if(isConnected) {
                     mSyncButton.setText("Desync UAV");
                     mSyncButton.setOnClickListener(desyncEventButton);
-                    mSyncStatus.setText("UAV "+uavID+" is connected!");
+                    mSyncStatus.setText("ROS sync: UAV "+uavID+" is connected!");
+                    mSendDataButton.setVisibility(View.VISIBLE);
                 }else {
                     mSyncButton.setText("Sync UAV");
                     mSyncButton.setOnClickListener(syncEventButton);
-                    mSyncStatus.setText("No UAV connected...");
+                    mSyncStatus.setText("ROS Sync: Not synced...");
+                    mSendDataButton.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -212,10 +269,20 @@ public class MainActivity extends BaseActivity {
             this.mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
             this.mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectTimeout);
             this.mSocket.connect();
-        }catch(URISyntaxException e){
+        } catch(URISyntaxException e){
             Log.e(TAG, "Incorrect URL syntax (Scanned from QR code)");
         }
     }
+
+    private View.OnClickListener sendDataEventButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            mSocket.emit("missionprogress", Integer.toString(missionProgress));
+            mSocket.emit("camerastatus", Integer.toString(cameraStatus));
+            mSocket.emit("motorstatus", Integer.toString(motorStatus));
+            mSocket.emit("batterylevel", Integer.toString(batteryLevel));
+        }
+    };
 
     private void sendRequest() {
         AsyncTask.execute(new Runnable() {

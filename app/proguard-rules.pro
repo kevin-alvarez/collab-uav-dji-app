@@ -13,6 +13,7 @@
 -dontwarn com.mapbox.**
 -dontwarn okhttp3.**
 -dontwarn retrofit2.**
+-dontwarn com.google.android.gms.internal.**
 
 -keepclassmembers enum * {
     public static <methods>;
