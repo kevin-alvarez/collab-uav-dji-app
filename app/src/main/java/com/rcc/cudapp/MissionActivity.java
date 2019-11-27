@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -31,19 +32,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import dji.common.battery.BatteryState;
+import dji.common.camera.SystemState;
 import dji.common.flightcontroller.FlightControllerState;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
+import io.socket.client.Socket;
 
-public class FlightPlanActivity extends BaseActivity implements View.OnClickListener, GoogleMap.OnMapClickListener, OnMapReadyCallback {
+public class MissionActivity extends BaseActivity implements View.OnClickListener, GoogleMap.OnMapClickListener, OnMapReadyCallback {
 
     private static final String TAG = "FlightPlan Activity";
     public static final String FLAG_CONNECTION_CHANGE = "dji_sdk_connection_change";
+    private Socket mSocket;
     private GoogleMap gMap;
     private Button locate, add, clear;
     private Button config, upload, start, stop;
+    private TextView ROSsync, UAVconn, cameraStatus, motorStatus, batteryLevel, missionProgress;
+    private boolean cameraError;
 
     private double droneLocationLat = 181, droneLocationLng = 181;
     private Marker droneMarker = null;
@@ -55,11 +62,21 @@ public class FlightPlanActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flight_plan);
+        setContentView(R.layout.activity_mission);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(FLAG_CONNECTION_CHANGE);
         registerReceiver(mReceiver, filter);
+
+
+        this.ROSsync = findViewById(R.id.ROSsync);
+        this.UAVconn = findViewById(R.id.UAVconn);
+        this.cameraStatus = findViewById(R.id.motorStatus);
+        this.motorStatus = findViewById(R.id.motorStatus);
+        this.batteryLevel = findViewById(R.id.batteryLevel);
+        this.missionProgress = findViewById(R.id.missionProgress);
+        initStatusCallbacks();
+        updateComponentsState();
 
         this.locate = findViewById(R.id.locate);
         this.add = findViewById(R.id.add);
@@ -78,7 +95,7 @@ public class FlightPlanActivity extends BaseActivity implements View.OnClickList
         stop.setOnClickListener(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
     }
 
@@ -93,6 +110,29 @@ public class FlightPlanActivity extends BaseActivity implements View.OnClickList
         this.finish();
     }
 
+    private void updateComponentsState() {
+        // Product connection verify
+        BaseProduct product = DJISDKManager.getInstance().getProduct();
+        if (product != null && product.isConnected()) {
+            this.UAVconn.setText("OK");
+            if (mFlightController != null && mFlightController.getState().areMotorsOn()) {
+                this.motorStatus.setText("ON");
+            }else {
+                this.motorStatus.setText("OFF");
+            }
+
+        }else {
+            this.UAVconn.setText("FAILED");
+        }
+
+        // ROS sync verify
+        if (mSocket.connected()) {
+            this.ROSsync.setText("OK");
+        }else {
+            this.ROSsync.setText("FAILED");
+        }
+    }
+
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
         @Override
@@ -100,6 +140,31 @@ public class FlightPlanActivity extends BaseActivity implements View.OnClickList
             onProductConnectionChange();
         }
     };
+
+    private void initStatusCallbacks() {
+        BaseProduct product = DJISDKManager.getInstance().getProduct();
+        if (product != null && product.isConnected()) {
+            product.getCamera().setSystemStateCallback(new SystemState.Callback() {
+                @Override
+                public void onUpdate(@NonNull SystemState systemState) {
+                    debugToast("Update Camera");
+                    if (systemState.hasError()) {
+                        cameraStatus.setText("ERROR");
+
+                    } else {
+                        cameraStatus.setText("OK");
+                    }
+                }
+            });
+            product.getBattery().setStateCallback(new BatteryState.Callback() {
+                @Override
+                public void onUpdate(BatteryState batteryState) {
+                    debugToast("Update Battery");
+                    batteryLevel.setText(batteryState.getChargeRemainingInPercent()+"%");
+                }
+            });
+        }
+    }
 
     private void onProductConnectionChange() {
         initFlightController();
@@ -137,8 +202,9 @@ public class FlightPlanActivity extends BaseActivity implements View.OnClickList
         //Create MarkerOptions object
         final MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(pos);
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.drone_icon_map));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.aircraft));
 
+        debugToast(pos.toString()); // Debug gps position
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -290,6 +356,16 @@ public class FlightPlanActivity extends BaseActivity implements View.OnClickList
             @Override
             public void run() {
                 Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void debugToast(String toastMsg) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Debug: "+toastMsg, Toast.LENGTH_LONG).show();
             }
         });
     }

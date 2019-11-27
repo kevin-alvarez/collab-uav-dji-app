@@ -56,7 +56,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".FlightPlanActivity"
+            android:name=".MissionActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
         </activity>

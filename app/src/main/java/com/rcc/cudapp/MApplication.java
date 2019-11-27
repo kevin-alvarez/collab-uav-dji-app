@@ -17,4 +17,5 @@ public class MApplication extends Application {
     public void onCreate() {
         super.onCreate();
     }
+
 }
