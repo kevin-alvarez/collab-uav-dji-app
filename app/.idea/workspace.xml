@@ -9,7 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java" line="427" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java" line="431" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54dba0fa-6d1f-4e2c-8192-80730d730a1b" name="Default Changelist" comment="">
@@ -40,26 +40,24 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="298" column="9" lean-forward="true" selection-start-line="298" selection-start-column="9" selection-end-line="298" selection-end-column="9" />
+            <state relative-caret-position="391">
+              <caret line="746" column="34" selection-start-line="746" selection-start-column="34" selection-end-line="746" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5767#5768#0" expanded="true" />
-                <element signature="e#5823#5824#0" expanded="true" />
-                <element signature="e#8078#8079#0" expanded="true" />
-                <element signature="e#8122#8123#0" expanded="true" />
-                <element signature="e#9716#9717#0" expanded="true" />
-                <element signature="e#9770#9771#0" expanded="true" />
-                <element signature="e#9912#9913#0" expanded="true" />
-                <element signature="e#9968#9969#0" expanded="true" />
-                <element signature="e#11074#11239#0" expanded="true" />
-                <element signature="e#11238#11239#0" expanded="true" />
-                <element signature="e#17231#17232#0" expanded="true" />
-                <element signature="e#17291#17292#0" expanded="true" />
-                <element signature="e#23438#23439#0" expanded="true" />
-                <element signature="e#23501#23502#0" expanded="true" />
-                <element signature="e#28216#28217#0" expanded="true" />
-                <element signature="e#28263#28264#0" expanded="true" />
+                <element signature="e#7951#7952#0" expanded="true" />
+                <element signature="e#8007#8008#0" expanded="true" />
+                <element signature="e#10324#10325#0" expanded="true" />
+                <element signature="e#10368#10369#0" expanded="true" />
+                <element signature="e#11962#11963#0" expanded="true" />
+                <element signature="e#12016#12017#0" expanded="true" />
+                <element signature="e#12158#12159#0" expanded="true" />
+                <element signature="e#12214#12215#0" expanded="true" />
+                <element signature="e#19831#19832#0" expanded="true" />
+                <element signature="e#19891#19892#0" expanded="true" />
+                <element signature="e#26045#26046#0" expanded="true" />
+                <element signature="e#26108#26109#0" expanded="true" />
+                <element signature="e#31402#31403#0" expanded="true" />
+                <element signature="e#31449#31450#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,12 +65,12 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="android-designer2" />
           <provider editor-type-id="text-editor">
             <state relative-caret-position="2592">
               <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
             </state>
           </provider>
-          <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -88,16 +86,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>updateCom</find>
-      <find>margin</find>
-      <find>showSetti</find>
-      <find>mrec</find>
-      <find>debugT</find>
-      <find>mHandler</find>
-      <find>mProduct</find>
-      <find>batter</find>
-      <find>batteryLevelValue</find>
-      <find>updateC</find>
       <find>showSett</find>
       <find>onMapclick</find>
       <find>onclick</find>
@@ -118,6 +106,16 @@
       <find>uploadWaypoint</find>
       <find>waypointList</find>
       <find>waypointMissionBuilder.waypointList</find>
+      <find>startway</find>
+      <find>alert</find>
+      <find>Alertdialog.</find>
+      <find>result</find>
+      <find>flightControl</find>
+      <find>AlertDialog</find>
+      <find>config</find>
+      <find>marker</find>
+      <find>debugToast</find>
+      <find>Aircraft Lan</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -151,9 +149,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-40" />
-    <option name="width" value="1578" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-44" />
+    <option name="width" value="1582" />
     <option name="height" value="1007" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -167,35 +165,15 @@
           <expand>
             <path>
               <item name="app" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="app" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
-            </path>
-            <path>
-              <item name="app" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="app" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="cudapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -305,7 +283,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1753" height="954" extended-state="6" />
+    <frame x="-7" y="-7" width="1753" height="954" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.13687316" />
@@ -438,12 +417,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_launch.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/attrs.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -483,12 +462,12 @@
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/dialog_waypointsetting.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="2672">
           <caret line="167" column="20" selection-start-line="167" selection-start-column="20" selection-end-line="167" selection-end-column="20" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/LaunchActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -524,51 +503,49 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_mission.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
           <caret line="25" column="50" selection-start-line="11" selection-start-column="8" selection-end-line="25" selection-end-column="50" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="86" column="41" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="41" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="2592">
           <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="298" column="9" lean-forward="true" selection-start-line="298" selection-start-column="9" selection-end-line="298" selection-end-column="9" />
+        <state relative-caret-position="391">
+          <caret line="746" column="34" selection-start-line="746" selection-start-column="34" selection-end-line="746" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5767#5768#0" expanded="true" />
-            <element signature="e#5823#5824#0" expanded="true" />
-            <element signature="e#8078#8079#0" expanded="true" />
-            <element signature="e#8122#8123#0" expanded="true" />
-            <element signature="e#9716#9717#0" expanded="true" />
-            <element signature="e#9770#9771#0" expanded="true" />
-            <element signature="e#9912#9913#0" expanded="true" />
-            <element signature="e#9968#9969#0" expanded="true" />
-            <element signature="e#11074#11239#0" expanded="true" />
-            <element signature="e#11238#11239#0" expanded="true" />
-            <element signature="e#17231#17232#0" expanded="true" />
-            <element signature="e#17291#17292#0" expanded="true" />
-            <element signature="e#23438#23439#0" expanded="true" />
-            <element signature="e#23501#23502#0" expanded="true" />
-            <element signature="e#28216#28217#0" expanded="true" />
-            <element signature="e#28263#28264#0" expanded="true" />
+            <element signature="e#7951#7952#0" expanded="true" />
+            <element signature="e#8007#8008#0" expanded="true" />
+            <element signature="e#10324#10325#0" expanded="true" />
+            <element signature="e#10368#10369#0" expanded="true" />
+            <element signature="e#11962#11963#0" expanded="true" />
+            <element signature="e#12016#12017#0" expanded="true" />
+            <element signature="e#12158#12159#0" expanded="true" />
+            <element signature="e#12214#12215#0" expanded="true" />
+            <element signature="e#19831#19832#0" expanded="true" />
+            <element signature="e#19891#19892#0" expanded="true" />
+            <element signature="e#26045#26046#0" expanded="true" />
+            <element signature="e#26108#26109#0" expanded="true" />
+            <element signature="e#31402#31403#0" expanded="true" />
+            <element signature="e#31449#31450#0" expanded="true" />
           </folding>
         </state>
       </provider>

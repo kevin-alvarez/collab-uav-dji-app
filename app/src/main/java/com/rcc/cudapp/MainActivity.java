@@ -155,10 +155,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         // Add mission listener
         addListener();
 
-
-
         // Init Components Content
-        //updateComponentsStatus();
         this.ROSsync.setText("✗");
         this.UAVconn.setText("✗");
         this.cameraStatus.setText("-");
@@ -378,7 +375,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mFlightController = mAircraft.getFlightController();
 
         if (mFlightController != null) {
-            debugToast("FlightController is NOT null");
             mFlightController.setStateCallback(new FlightControllerState.Callback() {
 
                 @Override
@@ -386,6 +382,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     droneLocationLat = djiFlightControllerCurrentState.getAircraftLocation().getLatitude();
                     droneLocationLng = djiFlightControllerCurrentState.getAircraftLocation().getLongitude();
                     updateDroneLocation();
+
+                    if (djiFlightControllerCurrentState.isLandingConfirmationNeeded()) {
+                        // Podría tener una confirmación del aterrizaje (complicado de hacer con dialogs)
+                        mFlightController.confirmLanding(new CommonCallbacks.CompletionCallback() {
+                            @Override
+                            public void onResult(DJIError djiError) {
+                                showToast("Aircraft Landing");
+                            }
+                        });
+                    }
 
                     boolean areMotorsOn = djiFlightControllerCurrentState.areMotorsOn();
                     if (areMotorsOn) {
@@ -404,7 +410,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mBattery = mAircraft.getBattery();
 
         if (mBattery != null) {
-            debugToast("Battery NOT null");
             mBattery.setStateCallback(new BatteryState.Callback() {
                 @Override
                 public void onUpdate(BatteryState batteryState) {
@@ -420,7 +425,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mCamera = mAircraft.getCamera();
 
         if (mCamera != null) {
-            debugToast("Camera NOT null");
             mCamera.setSystemStateCallback(new SystemState.Callback() {
                 @Override
                 public void onUpdate(@NonNull SystemState systemState) {
@@ -561,10 +565,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             gMap = googleMap;
             setUpMap();
         }
+        LatLng santiago = new LatLng(-33.447487, -70.673676);
+        //gMap.addMarker(new MarkerOptions().position(shenzhen).title("Marker in Shenzhen"));
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(santiago));
 
-        LatLng shenzhen = new LatLng(22.5362, 113.9454);
-        gMap.addMarker(new MarkerOptions().position(shenzhen).title("Marker in Shenzhen"));
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(shenzhen));
     }
 
     private void setUpMap() {
@@ -734,10 +738,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         @Override
         public void onExecutionUpdate(WaypointMissionExecutionEvent executionEvent) {
-            float progress = (float) (executionEvent.getProgress().targetWaypointIndex - 1) / executionEvent.getProgress().totalWaypointCount;
-            updateTextView(missionProgress, String.format("%.2f", progress));
-            debugToast("Mission Progress: "+String.format("%.2f", progress));
-            if (isSocketConnected) mSocket.emit("missionprogress", String.format("%.2f", progress));
+            float progress = ((float) (executionEvent.getProgress().targetWaypointIndex) / executionEvent.getProgress().totalWaypointCount) * 100;
+            updateTextView(missionProgress, String.format("%.1f", progress)+"%");
+            if (isSocketConnected) mSocket.emit("missionprogress", String.format("%.1f", progress));
         }
 
         @Override
@@ -748,6 +751,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         @Override
         public void onExecutionFinish(@Nullable final DJIError error) {
             setResultToToast("Execution finished: " + (error == null ? "Success!" : error.getDescription()));
+            if (error == null) {
+                updateTextView(missionProgress, "100%");
+                if (isSocketConnected) mSocket.emit("missionprogress", "100");
+            }
         }
     };
 
