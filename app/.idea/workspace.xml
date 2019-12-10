@@ -9,10 +9,11 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java" line="431" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java" line="474" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54dba0fa-6d1f-4e2c-8192-80730d730a1b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java" afterDir="false" />
@@ -40,24 +41,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="746" column="34" selection-start-line="746" selection-start-column="34" selection-end-line="746" selection-end-column="34" />
+            <state relative-caret-position="-25">
+              <caret line="346" column="31" selection-start-line="346" selection-start-column="31" selection-end-line="346" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7951#7952#0" expanded="true" />
-                <element signature="e#8007#8008#0" expanded="true" />
-                <element signature="e#10324#10325#0" expanded="true" />
-                <element signature="e#10368#10369#0" expanded="true" />
-                <element signature="e#11962#11963#0" expanded="true" />
-                <element signature="e#12016#12017#0" expanded="true" />
-                <element signature="e#12158#12159#0" expanded="true" />
-                <element signature="e#12214#12215#0" expanded="true" />
-                <element signature="e#19831#19832#0" expanded="true" />
-                <element signature="e#19891#19892#0" expanded="true" />
-                <element signature="e#26045#26046#0" expanded="true" />
-                <element signature="e#26108#26109#0" expanded="true" />
-                <element signature="e#31402#31403#0" expanded="true" />
-                <element signature="e#31449#31450#0" expanded="true" />
+                <element signature="e#7040#7041#0" expanded="true" />
+                <element signature="e#7096#7097#0" expanded="true" />
+                <element signature="e#9413#9414#0" expanded="true" />
+                <element signature="e#9457#9458#0" expanded="true" />
+                <element signature="e#11051#11052#0" expanded="true" />
+                <element signature="e#11105#11106#0" expanded="true" />
+                <element signature="e#11247#11248#0" expanded="true" />
+                <element signature="e#11303#11304#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -65,12 +60,12 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
-          <provider selected="true" editor-type-id="android-designer2" />
           <provider editor-type-id="text-editor">
             <state relative-caret-position="2592">
               <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
             </state>
           </provider>
+          <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -86,27 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>showSett</find>
-      <find>onMapclick</find>
-      <find>onclick</find>
-      <find>uploadMiss</find>
-      <find>uploadWa</find>
-      <find>onClick(</find>
-      <find>R.id.clear</find>
-      <find>add</find>
-      <find>gMAp.clear</find>
-      <find>waypointList.clea</find>
-      <find>isSocket</find>
-      <find>initSocke</find>
-      <find>mSOcket</find>
-      <find>areMotors</find>
-      <find>batterylevel</find>
-      <find>instance</find>
-      <find>upload</find>
-      <find>uploadWaypoint</find>
-      <find>waypointList</find>
-      <find>waypointMissionBuilder.waypointList</find>
-      <find>startway</find>
       <find>alert</find>
       <find>Alertdialog.</find>
       <find>result</find>
@@ -116,6 +90,27 @@
       <find>marker</find>
       <find>debugToast</find>
       <find>Aircraft Lan</find>
+      <find>instance</find>
+      <find>waypointMissionBuilder</find>
+      <find>upload</find>
+      <find>mFinished</find>
+      <find>waypointlist</find>
+      <find>waypointsdata</find>
+      <find>latlng</find>
+      <find>newmission</find>
+      <find>waypoint</find>
+      <find>maltitude</find>
+      <find>altitude</find>
+      <find>waypointList</find>
+      <find>mark</find>
+      <find>uploadwaypoi</find>
+      <find>missionwaypoint</find>
+      <find>clear</find>
+      <find>updateDrone</find>
+      <find>markWa</find>
+      <find>updatedron</find>
+      <find>markwa</find>
+      <find>start</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -149,9 +144,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-44" />
-    <option name="width" value="1582" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-53" />
+    <option name="width" value="1590" />
     <option name="height" value="1007" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -160,6 +155,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -171,9 +167,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -207,10 +202,63 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Android App.app">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainActivity" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="specific_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="com.rcc.cudapp.MainActivity" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
@@ -268,6 +316,11 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android App.MainActivity" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -283,8 +336,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1753" height="954" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1753" height="954" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.13687316" />
@@ -298,11 +350,11 @@
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Terminal" order="2" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50088495" side_tool="true" weight="0.17618468" />
-      <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49911505" visible="true" weight="0.17618468" />
+      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.5014749" side_tool="true" weight="0.17618468" />
+      <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49852508" visible="true" weight="0.17618468" />
       <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49970502" weight="0.2964763" />
       <window_info anchor="bottom" id="Logcat" order="6" weight="0.32928312" />
-      <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.32928312" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" weight="0.32928312" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.32928312" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32928312" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
@@ -417,12 +469,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_launch.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/attrs.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -462,22 +514,12 @@
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/dialog_waypointsetting.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="2672">
           <caret line="167" column="20" selection-start-line="167" selection-start-column="20" selection-end-line="167" selection-end-column="20" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/LaunchActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="241" column="4" selection-start-line="241" selection-start-column="4" selection-end-line="249" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MApplication.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -503,52 +545,56 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_mission.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
           <caret line="25" column="50" selection-start-line="11" selection-start-column="8" selection-end-line="25" selection-end-column="50" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="86" column="41" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="41" />
         </state>
       </provider>
+      <provider editor-type-id="android-manifest" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="2592">
-          <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/LaunchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="241" column="4" selection-start-line="241" selection-start-column="4" selection-end-line="249" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="746" column="34" selection-start-line="746" selection-start-column="34" selection-end-line="746" selection-end-column="34" />
+        <state relative-caret-position="-25">
+          <caret line="346" column="31" selection-start-line="346" selection-start-column="31" selection-end-line="346" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7951#7952#0" expanded="true" />
-            <element signature="e#8007#8008#0" expanded="true" />
-            <element signature="e#10324#10325#0" expanded="true" />
-            <element signature="e#10368#10369#0" expanded="true" />
-            <element signature="e#11962#11963#0" expanded="true" />
-            <element signature="e#12016#12017#0" expanded="true" />
-            <element signature="e#12158#12159#0" expanded="true" />
-            <element signature="e#12214#12215#0" expanded="true" />
-            <element signature="e#19831#19832#0" expanded="true" />
-            <element signature="e#19891#19892#0" expanded="true" />
-            <element signature="e#26045#26046#0" expanded="true" />
-            <element signature="e#26108#26109#0" expanded="true" />
-            <element signature="e#31402#31403#0" expanded="true" />
-            <element signature="e#31449#31450#0" expanded="true" />
+            <element signature="e#7040#7041#0" expanded="true" />
+            <element signature="e#7096#7097#0" expanded="true" />
+            <element signature="e#9413#9414#0" expanded="true" />
+            <element signature="e#9457#9458#0" expanded="true" />
+            <element signature="e#11051#11052#0" expanded="true" />
+            <element signature="e#11105#11106#0" expanded="true" />
+            <element signature="e#11247#11248#0" expanded="true" />
+            <element signature="e#11303#11304#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="2592">
+          <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
   </component>
 </project>

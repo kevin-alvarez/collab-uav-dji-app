@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -35,8 +37,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -303,12 +307,50 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     };
 
-    private Emitter.Listener missionWaypointsChange = new Emitter.Listener() {
+    private Emitter.Listener newMission = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             // Recibir y actualizar lista de waypoints
-            waypointMissionBuilder.waypointList(waypointList);
-            uploadWayPointMission();
+            String waypointsData = (String) args[0];
+            if (waypointsData.isEmpty()) {
+                showToast("No more missions to do, going home");
+                if (isSocketConnected) mSocket.emit("missionwaypoints", "");
+                mFlightController.startGoHome(new CommonCallbacks.CompletionCallback() {
+                    @Override
+                    public void onResult(DJIError djiError) {
+                    }
+                });
+            } else {
+                // Limpiar plan de vuelo
+                clearWaypointMission();
+                // Crear nuevo plan de vuelo de acuerdo a mission obtenida de ROS
+                List<String> waypoints = Arrays.asList(waypointsData.split("\\s*;\\s*"));
+                for (String wp : waypoints) {
+                    String[] data = wp.split("\\s*,\\s*");
+                    double latitude = Double.parseDouble(data[0]);
+                    double longitude = Double.parseDouble(data[1]);
+                    float altitude = Float.parseFloat(data[2]);
+                    Waypoint mWaypoint = new Waypoint(latitude, longitude, altitude);
+                    markWaypoint(new LatLng(latitude, longitude), BitmapDescriptorFactory.HUE_RED);
+                    if (waypointMissionBuilder != null) {
+                        waypointList.add(mWaypoint);
+                        waypointMissionBuilder.waypointList(waypointList).waypointCount(waypointList.size());
+                    }else {
+                        waypointMissionBuilder = new WaypointMission.Builder();
+                        waypointList.add(mWaypoint);
+                        waypointMissionBuilder.waypointList(waypointList).waypointCount(waypointList.size());
+                    }
+                }
+                DJIError error = getWaypointMissionOperator().loadMission(waypointMissionBuilder.build());
+                if (error == null) {
+                    if (isSocketConnected) mSocket.emit("missionwaypoints", waypointsData);
+                    setResultToToast("loadWaypoint succeeded");
+                } else {
+                    setResultToToast("loadWaypoint failed " + error.getDescription());
+                }
+                uploadWayPointMission();
+                showToast("Ready to start new mission");
+            }
         }
     };
 
@@ -319,6 +361,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             this.mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
             this.mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
             this.mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectTimeout);
+            this.mSocket.on("newmission", newMission);
             this.mSocket.connect();
         } catch(URISyntaxException e){
             Log.e(TAG, "Incorrect URL syntax (Scanned from QR code)");
@@ -468,7 +511,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         });
     }
 
-    private void cameraUpdate(){
+    private void cameraUpdate() {
         LatLng pos = new LatLng(droneLocationLat, droneLocationLng);
         float zoomlevel = (float) 18.0;
         CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(pos, zoomlevel);
@@ -488,15 +531,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             }
             case R.id.clear:{
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        gMap.clear();
-                    }
-                });
-                waypointList.clear();
-                waypointMissionBuilder.waypointList(waypointList);
-                updateDroneLocation();
+                clearWaypointMission();
                 break;
             }
             case R.id.config:{
@@ -533,7 +568,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onMapClick(LatLng point) {
         if (isAdd == true){
-            markWaypoint(point);
+            markWaypoint(point, BitmapDescriptorFactory.HUE_BLUE);
             Waypoint mWaypoint = new Waypoint(point.latitude, point.longitude, mAltitude);
             //Add Waypoints to Waypoint arraylist;
             if (waypointMissionBuilder != null) {
@@ -550,13 +585,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    private void markWaypoint(LatLng point){
+    private void markWaypoint(LatLng point, float pointDescriptor){
         //Create MarkerOptions object
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(point);
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        Marker marker = gMap.addMarker(markerOptions);
-        mMarkers.put(mMarkers.size(), marker);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(pointDescriptor));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Marker marker = gMap.addMarker(markerOptions);
+                mMarkers.put(mMarkers.size(), marker);
+            }
+        });
     }
 
     @Override
@@ -676,6 +716,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void configWayPointMission(){
+        ArrayList<String> waypoints = new ArrayList<>();
+        mFinishedAction = WaypointMissionFinishedAction.NO_ACTION; // Siempre sin accion al terminar
 
         if (waypointMissionBuilder == null){
 
@@ -696,20 +738,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         if (waypointMissionBuilder.getWaypointList().size() > 0){
 
-            for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
+            for (int i=0;i < waypointMissionBuilder.getWaypointList().size();i++){
                 waypointMissionBuilder.getWaypointList().get(i).altitude = mAltitude;
+                waypoints.add(String.format("%.8f,%.8f,%.2f", waypointMissionBuilder.getWaypointList().get(i).coordinate.getLatitude(), waypointMissionBuilder.getWaypointList().get(i).coordinate.getLongitude(), mAltitude));
             }
-
-            setResultToToast("Set Waypoint attitude successfully");
         }
 
         DJIError error = getWaypointMissionOperator().loadMission(waypointMissionBuilder.build());
         if (error == null) {
+            String waypointsData = TextUtils.join(";", waypoints);
+            if (isSocketConnected) mSocket.emit("missionwaypoints", waypointsData);
             setResultToToast("loadWaypoint succeeded");
         } else {
             setResultToToast("loadWaypoint failed " + error.getDescription());
         }
 
+    }
+
+    private void clearWaypointMission() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                gMap.clear();
+            }
+        });
+        waypointList.clear();
+        waypointMissionBuilder.waypointList(waypointList);
+        updateDroneLocation();
     }
 
     //Add Listener for WaypointMissionOperator
@@ -740,7 +795,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         public void onExecutionUpdate(WaypointMissionExecutionEvent executionEvent) {
             float progress = ((float) (executionEvent.getProgress().targetWaypointIndex) / executionEvent.getProgress().totalWaypointCount) * 100;
             updateTextView(missionProgress, String.format("%.1f", progress)+"%");
-            if (isSocketConnected) mSocket.emit("missionprogress", String.format("%.1f", progress));
+            if (isSocketConnected) {
+                mSocket.emit("missionprogress", String.format("%.1f", progress));
+                mSocket.emit("actualwaypoint", String.format("%d", executionEvent.getProgress().targetWaypointIndex));
+            }
+
+
+            Waypoint wp = waypointList.get(executionEvent.getProgress().targetWaypointIndex);
+            double lat = wp.coordinate.getLatitude();
+            double lon = wp.coordinate.getLongitude();
+            float alt = wp.altitude;
+            debugToast(String.format("%.2f, %.2f, %.2f", lat, lon, alt));
         }
 
         @Override
@@ -754,6 +819,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             if (error == null) {
                 updateTextView(missionProgress, "100%");
                 if (isSocketConnected) mSocket.emit("missionprogress", "100");
+                if (isSocketConnected) mSocket.emit("requestnewmission");
             }
         }
     };
