@@ -9,7 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java" line="474" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java" line="476" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54dba0fa-6d1f-4e2c-8192-80730d730a1b" name="Default Changelist" comment="">
@@ -41,18 +41,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-25">
-              <caret line="346" column="31" selection-start-line="346" selection-start-column="31" selection-end-line="346" selection-end-column="31" />
+            <state relative-caret-position="380">
+              <caret line="472" column="71" lean-forward="true" selection-start-line="472" selection-start-column="71" selection-end-line="472" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7040#7041#0" expanded="true" />
-                <element signature="e#7096#7097#0" expanded="true" />
-                <element signature="e#9413#9414#0" expanded="true" />
-                <element signature="e#9457#9458#0" expanded="true" />
-                <element signature="e#11051#11052#0" expanded="true" />
-                <element signature="e#11105#11106#0" expanded="true" />
-                <element signature="e#11247#11248#0" expanded="true" />
-                <element signature="e#11303#11304#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,12 +52,12 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="android-designer2" />
           <provider editor-type-id="text-editor">
             <state relative-caret-position="2592">
               <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
             </state>
           </provider>
-          <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -81,8 +73,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>alert</find>
-      <find>Alertdialog.</find>
       <find>result</find>
       <find>flightControl</find>
       <find>AlertDialog</find>
@@ -111,6 +101,8 @@
       <find>updatedron</find>
       <find>markwa</find>
       <find>start</find>
+      <find>gmap</find>
+      <find>debug</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,6 +147,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
@@ -167,7 +160,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -339,7 +331,7 @@
     <frame x="-7" y="-7" width="1753" height="954" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.13687316" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.13687316" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -350,11 +342,11 @@
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Terminal" order="2" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.5014749" side_tool="true" weight="0.17618468" />
-      <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49852508" visible="true" weight="0.17618468" />
-      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49970502" weight="0.2964763" />
+      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.5020649" side_tool="true" weight="0.17618468" />
+      <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49793512" visible="true" weight="0.17618468" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49852508" weight="0.2964763" />
       <window_info anchor="bottom" id="Logcat" order="6" weight="0.32928312" />
-      <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" weight="0.32928312" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.32928312" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.32928312" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32928312" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
@@ -572,18 +564,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rcc/cudapp/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-25">
-          <caret line="346" column="31" selection-start-line="346" selection-start-column="31" selection-end-line="346" selection-end-column="31" />
+        <state relative-caret-position="380">
+          <caret line="472" column="71" lean-forward="true" selection-start-line="472" selection-start-column="71" selection-end-line="472" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7040#7041#0" expanded="true" />
-            <element signature="e#7096#7097#0" expanded="true" />
-            <element signature="e#9413#9414#0" expanded="true" />
-            <element signature="e#9457#9458#0" expanded="true" />
-            <element signature="e#11051#11052#0" expanded="true" />
-            <element signature="e#11105#11106#0" expanded="true" />
-            <element signature="e#11247#11248#0" expanded="true" />
-            <element signature="e#11303#11304#0" expanded="true" />
           </folding>
         </state>
       </provider>

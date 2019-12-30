@@ -92,6 +92,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     // UAV mission variables
     private float mAltitude = 100.0f;
     private float mSpeed = 10.0f;
+    private boolean earlyStop = false;
+    private int actualWaypoint = 0;
 
     private List<Waypoint> waypointList = new ArrayList<>();
 
@@ -314,7 +316,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             String waypointsData = (String) args[0];
             if (waypointsData.isEmpty()) {
                 showToast("No more missions to do, going home");
-                if (isSocketConnected) mSocket.emit("missionwaypoints", "");
+                //if (isSocketConnected) mSocket.emit("missionwaypoints", "");
                 mFlightController.startGoHome(new CommonCallbacks.CompletionCallback() {
                     @Override
                     public void onResult(DJIError djiError) {
@@ -494,9 +496,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         //Create MarkerOptions object
         final MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(pos);
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.drone_icon_map));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.drone_icon_map_borders));
 
-        //debugToast(pos.toString()); // Debug gps position
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -547,6 +548,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             }
             case R.id.stop:{
+                earlyStop = true;
                 stopWaypointMission();
                 break;
             }
@@ -613,6 +615,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void setUpMap() {
         gMap.setOnMapClickListener(this);// add the listener for click for a map object
+        gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
     }
 
     private void showSettingDialog(){
@@ -794,18 +797,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         @Override
         public void onExecutionUpdate(WaypointMissionExecutionEvent executionEvent) {
             float progress = ((float) (executionEvent.getProgress().targetWaypointIndex) / executionEvent.getProgress().totalWaypointCount) * 100;
+            actualWaypoint = executionEvent.getProgress().targetWaypointIndex;
             updateTextView(missionProgress, String.format("%.1f", progress)+"%");
             if (isSocketConnected) {
                 mSocket.emit("missionprogress", String.format("%.1f", progress));
-                mSocket.emit("actualwaypoint", String.format("%d", executionEvent.getProgress().targetWaypointIndex));
+                mSocket.emit("actualwaypoint", String.format("%d", actualWaypoint));
             }
-
-
-            Waypoint wp = waypointList.get(executionEvent.getProgress().targetWaypointIndex);
-            double lat = wp.coordinate.getLatitude();
-            double lon = wp.coordinate.getLongitude();
-            float alt = wp.altitude;
-            debugToast(String.format("%.2f, %.2f, %.2f", lat, lon, alt));
         }
 
         @Override
@@ -817,8 +814,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         public void onExecutionFinish(@Nullable final DJIError error) {
             setResultToToast("Execution finished: " + (error == null ? "Success!" : error.getDescription()));
             if (error == null) {
-                updateTextView(missionProgress, "100%");
-                if (isSocketConnected) mSocket.emit("missionprogress", "100");
+                if (earlyStop) {
+                    earlyStop = false;
+                } else {
+                    actualWaypoint++;
+                    updateTextView(missionProgress, "100%");
+                    if (isSocketConnected) mSocket.emit("missionprogress", "100");
+                    if (isSocketConnected) mSocket.emit("actualwaypoint", String.format("%d", actualWaypoint));
+                }
                 if (isSocketConnected) mSocket.emit("requestnewmission");
             }
         }
